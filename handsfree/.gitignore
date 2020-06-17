@@ -1,0 +1,7 @@
+*.user
+*~
+*.pyc
+Dataset/rosbags/*
+Dataset/videos/*
+
+
