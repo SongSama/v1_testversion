@@ -13,6 +13,7 @@
   <arg name="kinova_robotType" default="j2s7s300"/>
   <arg name="kinova_robotName" default="$(arg kinova_robotType)"/>
 
+
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
@@ -23,7 +24,7 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-<!--
+
   <include file="$(find j2s7s300_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
     <arg name="allow_trajectory_execution" value="true"/>
@@ -31,7 +32,6 @@
     <arg name="info" value="true"/>
     <arg name="debug" value="false"/>
   </include>
--->
 
     <!-- We do not have a robot connected, so publish fake joint states -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
@@ -41,7 +41,7 @@
 
 
   <param name="robot_description" command="$(find xacro)/xacro $(find v1_description)/urdf/v1.xacro" />
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false"  args=" -urdf -param robot_description -model v1
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false"  args=" -urdf -param robot_description -model v1 -x 0  -y 0 -z 0.018
         -J $(arg kinova_robotType)_joint_1 0.0
         -J $(arg kinova_robotType)_joint_2 1.5
         -J $(arg kinova_robotType)_joint_3 0.0
@@ -53,6 +53,8 @@
         -J $(arg kinova_robotType)_joint_finger_2 1.0
         -J $(arg kinova_robotType)_joint_finger_3 1.0" />
 
+    <!-- The semantic description that corresponds to the URDF -->
+    <param name="robot_description_semantic" textfile="$(find j2s7s300_moveit_config)/config/v1.srdf" />
 
 
     <!-- Load joint controller configurations from YAML file to parameter server 
@@ -70,6 +72,9 @@
       finger_tip_3_position_controller
       joint_state_controller"/>
 
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/mobile_base" args="joint_state_controller pitch_position_controller yaw_position_controller"/>
 
     <!-- convert joint states to TF transforms for rviz, etc-->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">

@@ -4,14 +4,14 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="stone_v3_base"  xmlns:xacro="http://www.ros.org/wiki/xacro">  
-  <xacro:include filename="$(find handsfree_gazebo)/urdf/stone_v3/common_properties.xacro"/>
+  <xacro:include filename="$(find handsfree_gazebo)/urdf/stone_v3/common_properties.xacro"/>  <!-- color -->
   
   <xacro:macro name="stone_v3_base">
   <link name="base_footprint"/>
   <link name="base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.0011186 -4.317E-05 0.26842"/>
-      <mass value="49.7333"/>
+      <mass value="9.7333"/>
       <inertia ixx="0.1750" ixy="0.0014142857" ixz="0.000885" iyy="0.183614285" iyz="0" izz="0.1541"/>
     </inertial>
     <visual>
@@ -319,6 +319,39 @@
       </joint>
 
       <link name="camera_rgb_optical_frame"/>
+
+  <!--for balance -->
+  <link name="balance_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="20"/>
+      <inertia ixx="0.00039792" ixy="0" ixz="0" iyy="2.4687E-05" iyz="0" izz="0.00040604"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+         <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.33333 0.33333 0.33333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+         <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="balance_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.1 0 0.303"/>
+    <parent link="base_link"/>
+    <child link="balance_link"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+
   </xacro:macro>  
 </robot>
 

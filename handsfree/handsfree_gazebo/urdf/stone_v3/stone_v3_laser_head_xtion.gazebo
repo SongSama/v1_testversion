@@ -8,6 +8,7 @@
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
         <robotNamespace>/mobile_base</robotNamespace>
         <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        <legacyModeNS>true</legacyModeNS>
       </plugin>
   </gazebo>
 
@@ -91,8 +92,8 @@
   </gazebo>
   
   <gazebo reference="wheel1_link">
-    <mu1>10.0</mu1>
-    <mu2>10.0</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>200000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.001</minDepth>
@@ -100,8 +101,8 @@
   </gazebo>
 
   <gazebo reference="wheel2_link">
-    <mu1>10.0</mu1>
-    <mu2>10.0</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>200000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.003</minDepth>
@@ -109,8 +110,8 @@
   </gazebo>
 
   <gazebo reference="caster_front_link">
-    <mu1>0.0</mu1>
-    <mu2>0.0</mu2>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
     <kp>100000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.003</minDepth>
@@ -119,8 +120,8 @@
   </gazebo>
 
   <gazebo reference="caster_back_link">
-    <mu1>0.0</mu1>
-    <mu2>0.0</mu2>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
     <kp>100000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.001</minDepth>

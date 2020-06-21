@@ -117,9 +117,9 @@ int main(int argc, char** argv)
   target_pose1.orientation.y = 0.0;
   target_pose1.orientation.z = 0.0;
   target_pose1.orientation.w = 1.0;
-  target_pose1.position.x = 0.0;
-  target_pose1.position.y = 0.0;
-  target_pose1.position.z = 0.9;
+  target_pose1.position.x = 0.28;
+  target_pose1.position.y = -0.2;
+  target_pose1.position.z = 0.5;
   move_group.setPoseTarget(target_pose1);
 
 
@@ -154,8 +154,8 @@ int main(int argc, char** argv)
   // and report success on execution of a trajectory.
 
   /* Uncomment below line when working with a real robot */
-   move_group.move();
-/*
+  // move_group.move();
+
   // Planning to a joint-space goal
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //
@@ -182,8 +182,9 @@ int main(int argc, char** argv)
   visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
   visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
   visual_tools.trigger();
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
-*/
+  //visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+//   move_group.move();
 /*
   // Planning with Path Constraints
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -192,8 +193,8 @@ int main(int argc, char** argv)
   // Let's specify a path constraint and a pose goal for our group.
   // First define the path constraint.
   moveit_msgs::OrientationConstraint ocm;
-  ocm.link_name = "panda_link7";
-  ocm.header.frame_id = "panda_link0";
+  ocm.link_name = "j2s7s300_link_7";
+  ocm.header.frame_id = "root";
   ocm.orientation.w = 1.0;
   ocm.absolute_x_axis_tolerance = 0.1;
   ocm.absolute_y_axis_tolerance = 0.1;
@@ -236,13 +237,18 @@ int main(int argc, char** argv)
   visual_tools.publishText(text_pose, "Constrained Goal", rvt::WHITE, rvt::XLARGE);
   visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
   visual_tools.trigger();
-  visual_tools.prompt("next step");
+//  visual_tools.prompt("next step");
+
+  move_group.move();
 
   // When done with the path constraint be sure to clear it.
   move_group.clearPathConstraints();
-
+*/
   // Since we set the start state we have to clear it before planning other paths
   move_group.setStartStateToCurrentState();
+
+
+
 
   // Cartesian Paths
   // ^^^^^^^^^^^^^^^
@@ -269,7 +275,7 @@ int main(int argc, char** argv)
   // Cartesian motions are frequently needed to be slower for actions such as approach and retreat
   // grasp motions. Here we demonstrate how to reduce the speed of the robot arm via a scaling factor
   // of the maxiumum speed of each joint. Note this is not the speed of the end effector point.
-  move_group.setMaxVelocityScalingFactor(0.1);
+//  move_group.setMaxVelocityScalingFactor(0.1);   slow
 
   // We want the Cartesian path to be interpolated at a resolution of 1 cm
   // which is why we will specify 0.01 as the max step in Cartesian
@@ -289,9 +295,12 @@ int main(int argc, char** argv)
   for (std::size_t i = 0; i < waypoints.size(); ++i)
     visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
   visual_tools.trigger();
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
-*/
-/*
+  //visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+  
+//  move_group.move();
+
+
+
   // Adding/Removing Objects and Attaching/Detaching Objects
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //
@@ -333,7 +342,9 @@ int main(int argc, char** argv)
   visual_tools.trigger();
 
   // Wait for MoveGroup to recieve and process the collision object message
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object appears in RViz");
+//  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object appears in RViz");
+
+
 
   // Now when we plan a trajectory it will avoid the obstacle
   move_group.setStartState(*move_group.getCurrentState());
@@ -341,7 +352,7 @@ int main(int argc, char** argv)
   another_pose.orientation.w = 1.0;
   another_pose.position.x = 0.4;
   another_pose.position.y = -0.4;
-  another_pose.position.z = 0.9;
+  another_pose.position.z = 0.95;
   move_group.setPoseTarget(another_pose);
 
   success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
@@ -352,7 +363,10 @@ int main(int argc, char** argv)
   visual_tools.publishText(text_pose, "Obstacle Goal", rvt::WHITE, rvt::XLARGE);
   visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
   visual_tools.trigger();
-  visual_tools.prompt("next step");
+//  visual_tools.prompt("next step");
+  
+//  move_group.move();
+
 
   // Now, let's attach the collision object to the robot.
   ROS_INFO_NAMED("tutorial", "Attach the object to the robot");
@@ -363,9 +377,10 @@ int main(int argc, char** argv)
   visual_tools.trigger();
 
   // Wait for MoveGroup to recieve and process the attached collision object message //
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object attaches to the "
-                      "robot");
+//  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object attaches to the "robot");
 
+
+/*
   // Now, let's detach the collision object from the robot.
   ROS_INFO_NAMED("tutorial", "Detach the object from the robot");
   move_group.detachObject(collision_object.id);
@@ -375,8 +390,9 @@ int main(int argc, char** argv)
   visual_tools.trigger();
 
   // Wait for MoveGroup to recieve and process the attached collision object message //
-  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object detaches to the "
-                      "robot");
+//  visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object detaches to the "
+//                      "robot");
+
 
   // Now, let's remove the collision object from the world.
   ROS_INFO_NAMED("tutorial", "Remove the object from the world");
