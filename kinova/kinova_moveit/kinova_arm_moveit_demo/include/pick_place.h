@@ -102,6 +102,7 @@ namespace kinova
 
         void build_workscene();
         void add_obstacle();
+        void add_car_obstacle();
         void add_complex_obstacle();
         void clear_obstacle();
         void clear_workscene();

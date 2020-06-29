@@ -1352,7 +1352,7 @@
         <collision name='collision'>
           <geometry>
             <box>
-              <size>0.03 0.03 0.1</size>
+              <size>0.05 0.05 0.2</size>
             </box>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -1372,7 +1372,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.03 0.03 0.1</size>
+              <size>0.05 0.05 0.2</size>
             </box>
           </geometry>
           <material>
@@ -1496,7 +1496,7 @@
         <pose frame=''>0.0 0.0 0.0 0.0 0 0.0</pose>
         <scale>1 1 1  </scale>
         <link name='link'>
-          <pose frame=''>2.0 0.0 0.55 0.0 0 0.0</pose>
+          <pose frame=''>2.0 0.0 0.6 0.0 0 0.0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>3.66426 4.59494 0 0 -0 0</wrench>
